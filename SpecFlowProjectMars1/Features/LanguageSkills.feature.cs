@@ -76,12 +76,19 @@ namespace SpecFlowProjectMars1.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add a new language")]
+        [NUnit.Framework.CategoryAttribute("language")]
         [NUnit.Framework.TestCaseAttribute("", "Fluent", null)]
         [NUnit.Framework.TestCaseAttribute("Spanish12", "Basic", null)]
         [NUnit.Framework.TestCaseAttribute("Special@#", "Fluent", null)]
         public void AddANewLanguage(string languages, string level, string[] exampleTags)
         {
-            string[] tagsOfScenario = exampleTags;
+            string[] @__tags = new string[] {
+                    "language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("languages", languages);
             argumentsOfScenario.Add("level", level);
@@ -111,13 +118,13 @@ namespace SpecFlowProjectMars1.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Update the language name")]
-        [NUnit.Framework.CategoryAttribute("cleanTestData")]
+        [NUnit.Framework.CategoryAttribute("language")]
         [NUnit.Framework.TestCaseAttribute("French", "Basic", "Hindi", null)]
         [NUnit.Framework.TestCaseAttribute("German", "Fluent", "@#$%abc", null)]
         public void UpdateTheLanguageName(string oldLang, string oldLevel, string newLang, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "cleanTestData"};
+                    "language"};
             if ((exampleTags != null))
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
@@ -156,13 +163,13 @@ testRunner.Then(string.Format("\"{0}\" is added to list", newLang), ((string)(nu
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Delete a language")]
-        [NUnit.Framework.CategoryAttribute("cleanTestData")]
+        [NUnit.Framework.CategoryAttribute("language")]
         [NUnit.Framework.TestCaseAttribute("abcdefghi", "Basic", null)]
         [NUnit.Framework.TestCaseAttribute("12345", "Fluent", null)]
         public void DeleteALanguage(string language1, string level1, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "cleanTestData"};
+                    "language"};
             if ((exampleTags != null))
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
@@ -200,12 +207,19 @@ testRunner.Then(string.Format("\"{0}\" is added to list", newLang), ((string)(nu
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add a skill")]
+        [NUnit.Framework.CategoryAttribute("skill")]
         [NUnit.Framework.TestCaseAttribute("c#", "Expert", null)]
         [NUnit.Framework.TestCaseAttribute("skill123", "Beginner", null)]
         [NUnit.Framework.TestCaseAttribute("", "Expert", null)]
         public void AddASkill(string skills, string levels, string[] exampleTags)
         {
-            string[] tagsOfScenario = exampleTags;
+            string[] @__tags = new string[] {
+                    "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("skills", skills);
             argumentsOfScenario.Add("levels", levels);
@@ -235,11 +249,18 @@ testRunner.Then(string.Format("\"{0}\" is added to list", newLang), ((string)(nu
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Update a skill")]
+        [NUnit.Framework.CategoryAttribute("skill")]
         [NUnit.Framework.TestCaseAttribute("python1", "Expert", "Testing", null)]
         [NUnit.Framework.TestCaseAttribute("gfgfch21", "Beginner", "JIRA", null)]
         public void UpdateASkill(string oldSkills, string oldLevels, string newSkills, string[] exampleTags)
         {
-            string[] tagsOfScenario = exampleTags;
+            string[] @__tags = new string[] {
+                    "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("oldSkills", oldSkills);
             argumentsOfScenario.Add("oldLevels", oldLevels);
@@ -273,11 +294,18 @@ testRunner.Then(string.Format("\"{0}\" is added to list", newLang), ((string)(nu
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Delete a skill")]
+        [NUnit.Framework.CategoryAttribute("skill")]
         [NUnit.Framework.TestCaseAttribute("abcdefghijklmnopq", "Beginner", null)]
         [NUnit.Framework.TestCaseAttribute("java", "Expert", null)]
         public void DeleteASkill(string skillName1, string levelName1, string[] exampleTags)
         {
-            string[] tagsOfScenario = exampleTags;
+            string[] @__tags = new string[] {
+                    "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("skillName1", skillName1);
             argumentsOfScenario.Add("levelName1", levelName1);

@@ -2,7 +2,7 @@
   As a user
   I want to add new languages to my profile
   So that I can showcase the languages I know
- 
+ @language
   Scenario Outline: Add a new language
     Given the user logs into ProjectMars
     When the user adds the language "<languages>"  with level "<level>"
@@ -14,7 +14,7 @@
       | Spanish12    | Basic  |
       | Special@#  | Fluent |
 
- @cleanTestData
+ @language
  Scenario: Update the language name
  Given the user logs into ProjectMars
  When I add a language "<oldLang>" with level "<oldLevel>"
@@ -25,7 +25,7 @@ Examples:
 | French  | Basic    | Hindi   |
 | German  | Fluent   | @#$%abc |
 
- @cleanTestData
+ @language
   Scenario: Delete a language
     Given the user logs into ProjectMars
     When I add a language "<language1>" with level "<level1>"
@@ -35,7 +35,7 @@ Examples:
     | language1 | level1 |
     | abcdefghi | Basic  |
     | 12345     | Fluent |
-
+@skill
  Scenario Outline: Add a skill
  Given the user logs into ProjectMars
  When the user adds a skill "<skills>" with level "<levels>"
@@ -45,7 +45,7 @@ Examples:
  | c#       | Expert   |
  | skill123 | Beginner |
  |          |  Expert  |
-
+ @skill
  Scenario Outline: Update a skill
  Given the user logs into ProjectMars
  When  add a skill "<oldSkills>" with level "<oldLevels>"
@@ -55,7 +55,7 @@ Examples:
  | oldSkills   | oldLevels | newSkills |
  | python1     | Expert    | Testing   |
  | gfgfch21 | Beginner  | JIRA      |
-
+ @skill
  Scenario Outline: Delete a skill
  Given the user logs into ProjectMars
  When I add a skill "<skillName1>" with level "<levelName1>"

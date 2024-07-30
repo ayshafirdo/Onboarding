@@ -32,6 +32,7 @@ namespace SpecFlowProjectMars1.StepDefinitions
             LoginActions loginPageobj = new LoginActions();
             loginPageobj.Login(driver,"test123456@test.com", "test123456");
         }
+        [Scope(Tag = "language")]
         [When(@"the user adds the language ""([^""]*)""  with level ""([^""]*)""")]
         public void WhenTheUserAddsTheLanguageWithLevel(string languages, string level)
         {
@@ -46,8 +47,8 @@ namespace SpecFlowProjectMars1.StepDefinitions
                 Assert.IsTrue(isAdded, $"The language '{language}'  was not added to the list.");
             }
         }
-        
-         [When(@"I add a language ""([^""]*)"" with level ""([^""]*)""")]
+        [Scope(Tag = "language")]
+        [When(@"I add a language ""([^""]*)"" with level ""([^""]*)""")]
          public void WhenIAddALanguageWithLevel(string oldLang, string oldLevel)
          {
              languageobj.AddNewLanguage(driver,oldLang,oldLevel);
@@ -76,18 +77,19 @@ namespace SpecFlowProjectMars1.StepDefinitions
         {
             languageobj.VerifyLanguageDeleted(driver,language1);
         }
-
+        [Scope(Tag = "skill")]
         [When(@"the user adds a skill ""([^""]*)"" with level ""([^""]*)""")]
         public void WhenTheUserAddsASkillWithLevel(string skills, string levels)
         {
             skillobj.AddNewSkill(driver,skills,levels);
         }
-
+        
         [Then(@"the ""([^""]*)"" should be added to the list")]
         public void ThenTheSkillBeAddedToTheList(string skills)
         {
             skillobj.VerifySkillAdded(driver,skills);
         }
+        [Scope(Tag = "skill")]
         [When(@"add a skill ""([^""]*)"" with level ""([^""]*)""")]
         public void WhenAddASkillWithLevel(string oldSkills, string oldLevels)
         {
@@ -100,14 +102,14 @@ namespace SpecFlowProjectMars1.StepDefinitions
         {
             skillobj.EditSkill(driver,oldSkills,newSkills);
         }
-    
 
+        
         [Then(@"""([^""]*)""  is updated to ""([^""]*)""")]
         public void ThenIsUpdted(string newSkills,string oldSkills)
         {
             skillobj.VerifySkillUpdated(driver,oldSkills,newSkills);
         }
-
+        [Scope(Tag = "skill")]
         [When(@"I add a skill ""([^""]*)"" with level ""([^""]*)""")]
         public void WhenIAddSkillWithLevel(string skillName1, string levelName1)
         {
