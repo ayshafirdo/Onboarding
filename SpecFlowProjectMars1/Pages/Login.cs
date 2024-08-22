@@ -3,31 +3,22 @@ using System.Security.Principal;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+using SpecFlowProjectMars1.Utilities;
 
 namespace SpecFlowProjectMars1.Pages
 
 {
-    public class LoginActions
+    public class LoginActions: CommonDriver
     {
-        
 
-
-        
-        public void Login(IWebDriver driver, String email, String password)
-
+        public void Login(String email, String password)
 
         {
-
+             
 
             try
             {
-                // Navigate to a URL
-                driver.Manage().Window.Maximize();
-                driver.Navigate().GoToUrl("http://localhost:5000/Home");
-
-                
-                Thread.Sleep(5000); 
-
+          
                 //Click on sign in button
                 IWebElement loginButton = driver.FindElement(By.XPath("//a[contains(text(),'Sign In')]"));
                 loginButton.Click();
@@ -39,10 +30,7 @@ namespace SpecFlowProjectMars1.Pages
                 IWebElement loginButton2 = driver.FindElement(By.XPath("//button[contains(text(),'Login')]"));
                 loginButton2.Click();
                 Thread.Sleep(5000);
-
-                // Wait for the elements to be visible and interactable
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-
+             
             }
             catch (Exception ex)
             {
@@ -51,7 +39,7 @@ namespace SpecFlowProjectMars1.Pages
         }
         
 
-        public void VerifyLoggedInUser(IWebDriver driver)
+        public void VerifyLoggedInUser()
         {
             
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));

@@ -13,7 +13,7 @@ namespace SpecFlowProjectMars1.Utilities
         public static void WaitToBeVisible(IWebDriver driver,string tmOptionLocator,string locatorValue,int seconds)
         {
             WebDriverWait driverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(seconds));
-           // driverWait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(tmOptionLocator)));
+           
         }
     }
 }

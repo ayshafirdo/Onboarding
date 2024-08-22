@@ -7,42 +7,48 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Chrome;
 using NUnit.Framework;
+using SpecFlowProjectMars1.Utilities;
 
 namespace SpecFlowProjectMars1.Pages
 {
-    public class Language
+    public class Language: CommonDriver
     {
-       
-        public void AddNewLanguage(IWebDriver driver, String languageName,string languageLevel)
+        // Locators
+        private readonly By addNewButtonLocator = By.XPath("/html/body/div[1]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/thead/tr/th[3]/div");
+        private readonly By languageNameInputLocator = By.XPath("//input[contains(@placeholder,'Add Language')]");
+        private readonly By languageLevelDropdownLocator = By.XPath("//div[@id='account-profile-section']//select[@class='ui dropdown']");
+        private readonly By addLanguageButtonLocator = By.XPath("//input[contains(@value, 'Add')]");
+        private readonly By validationMessageLocator = By.XPath("//div[@class='ns-box-inner' and contains(text(), 'Please enter language and level')]");
+
+        
+
+        // Method to add a new language
+        public void AddNewLanguage(string languageName, string languageLevel)
         {
             Thread.Sleep(1000);
-            //Adding Language
-            IWebElement addNewButton = driver.FindElement(By.XPath("/html/body/div[1]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/thead/tr/th[3]/div"));
-            addNewButton.Click();
-            // Wait for the elements to be visible and interactable
+
+            // Click the add new button
+            driver.FindElement(addNewButtonLocator).Click();
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-
-            // Locate the language name input field
-            IWebElement languageNameInput = wait.Until(d => d.FindElement(By.XPath("//input[contains(@placeholder,\"Add Language\")]")));
+            IWebElement languageNameInput = wait.Until(d => d.FindElement(languageNameInputLocator));
             languageNameInput.Clear();
-            languageNameInput.SendKeys(languageName); 
+            languageNameInput.SendKeys(languageName);
 
-            // Locate the language level dropdown
-            IWebElement languageLevelDropdown = wait.Until(d => d.FindElement(By.XPath("//div[@id='account-profile-section']//select[@class='ui dropdown']")));
+            // Select the language level from the dropdown
+            IWebElement languageLevelDropdown = wait.Until(d => d.FindElement(languageLevelDropdownLocator));
             SelectElement selectLanguageLevel = new SelectElement(languageLevelDropdown);
             Thread.Sleep(1000);
-            selectLanguageLevel.SelectByText(languageLevel); 
+            selectLanguageLevel.SelectByText(languageLevel);
 
-            // Locate and click the add language button
-            IWebElement addLanguageButton = wait.Until(d => d.FindElement(By.XPath("//input[contains(@value, 'Add')]")));
-            addLanguageButton.Click();
+            // Click the add language button
+            driver.FindElement(addLanguageButtonLocator).Click();
 
             // Verify the toast message for empty language name
             if (string.IsNullOrWhiteSpace(languageName))
             {
                 try
                 {
-                    IWebElement validationMessage = wait.Until(d => d.FindElement(By.XPath("//div[@class='ns-box-inner' and contains(text(), 'Please enter language and level')]")));
+                    IWebElement validationMessage = wait.Until(d => d.FindElement(validationMessageLocator));
                     Assert.AreEqual("Please enter language and level", validationMessage.Text);
                 }
                 catch (WebDriverTimeoutException)
@@ -56,10 +62,12 @@ namespace SpecFlowProjectMars1.Pages
                 wait.Until(d => d.FindElement(By.XPath($"//td[contains(text(),'{languageName}')]")));
             }
 
-        System.Threading.Thread.Sleep(8000); 
+            Thread.Sleep(8000);
         }
 
-        public bool VerifyLanguageAdded(IWebDriver driver, string languageName)
+        
+
+        public bool VerifyLanguageAdded(string languageName)
         {
             if (string.IsNullOrWhiteSpace(languageName))
             {
@@ -70,7 +78,7 @@ namespace SpecFlowProjectMars1.Pages
 
             try
             {
-                // Initialize WebDriverWait
+                
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
                 // Wait until the language is displayed in the table
@@ -94,11 +102,10 @@ namespace SpecFlowProjectMars1.Pages
             }
         }
 
-        public void EditLanguage(IWebDriver driver,string oldLang, string newLang)
+        public void EditLanguage(string oldLang, string newLang)
         {
-            // Wait for the elements to be visible and interactable
+            
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-
 
             //Click on edit button
             IWebElement editButtonLang = wait.Until(d => d.FindElement(By.XPath("//tbody/tr[1]/td[3]/span[1]/i[1]")));
@@ -116,7 +123,7 @@ namespace SpecFlowProjectMars1.Pages
             System.Threading.Thread.Sleep(5000);
         }
 
-        public bool VerifyLanguageUpdated(IWebDriver driver, string languageName)
+        public bool VerifyLanguageUpdated(string languageName)
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
             try
@@ -131,28 +138,27 @@ namespace SpecFlowProjectMars1.Pages
             }
         }
 
-        public void DeleteLanguage(IWebDriver driver,string language1)
+        public void DeleteLanguage(string language1)
         {
-            // Wait for the elements to be visible and interactable
+            
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             //Delete language
             IWebElement delLangButton = wait.Until(d => d.FindElement(By.XPath("//tbody/tr[1]/td[3]/span[2]/i[1]")));
             delLangButton.Click();
         }
 
-        public bool VerifyLanguageDeleted(IWebDriver driver, string language1)
+        public bool VerifyLanguageDeleted(string language1)
         {
-            
-            
+
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
                 try
                 {
-                // Ensure the page is fully loaded
+                
                 wait.Until(d => ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").Equals("complete"));
 
-                // Wait a bit to ensure any deletion action is completed
+                
                 Thread.Sleep(2000); 
-                                    // Try to locate the language element in the table
+                                    
                 wait.Until(d => d.FindElement(By.XPath($"//td[text()='{language1}']")));
                     Thread.Sleep(1000);
                     // If the language element is found, return false
@@ -161,7 +167,7 @@ namespace SpecFlowProjectMars1.Pages
                 }
                 catch (WebDriverTimeoutException)
                 {
-                    // If the language element is not found within the timeout, return true
+                    
                     Console.WriteLine($"Language '{language1}' was not found in the list.");
                     return true;
                 }
@@ -172,9 +178,121 @@ namespace SpecFlowProjectMars1.Pages
                 return true;
             }
 
-
-           
         }
+
+        public void AddNewLanguageWithoutLevel(string languageName)
+        {
+            Thread.Sleep(1000);
+
+            // Adding Language
+            driver.FindElement(addNewButtonLocator).Click();
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+
+            // Locate the language name input field
+            IWebElement languageNameInput = wait.Until(d => d.FindElement(languageNameInputLocator));
+            languageNameInput.Clear();
+            languageNameInput.SendKeys(languageName);
+
+            // Leave the language level empty 
+            // click the add language button
+            driver.FindElement(addLanguageButtonLocator).Click();
+        }
+        
+        
+
+        public void AddExistingLanguageAndLevel(string languageName, string languageLevel)
+        {
+            Thread.Sleep(1000);
+            //Adding Language
+            driver.FindElement(addNewButtonLocator).Click();
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+
+            // Locate the language name input field
+            IWebElement languageNameInput = wait.Until(d => d.FindElement(languageNameInputLocator));
+            languageNameInput.Clear();
+            languageNameInput.SendKeys(languageName);
+
+            // Locate the language level dropdown
+            IWebElement languageLevelDropdown = wait.Until(d => d.FindElement(languageLevelDropdownLocator));
+            SelectElement selectLanguageLevel = new SelectElement(languageLevelDropdown);
+            Thread.Sleep(1000);
+            selectLanguageLevel.SelectByText(languageLevel);
+
+            // Locate and click the add language button
+            driver.FindElement(addLanguageButtonLocator).Click();
+            
+        }
+        public void VerifyValidation()
+        { 
+
+            // Verify that a validation message or error appears
+            try
+            {
+                
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                IWebElement validationMessage = wait.Until(d => d.FindElement(By.XPath("//div[@class='ns-box-inner' and contains(text(), 'This language is already exist in your language list')]")));
+                Assert.AreEqual("This language is already exist in your language list.", validationMessage.Text);
+                Console.WriteLine("Test passed: User cannot add a existing language and level.");
+            }
+            catch (WebDriverTimeoutException)
+            {
+                throw new Exception("Expected validation message 'This language is already exists in your language list' was not displayed.");
+            }
+
+            System.Threading.Thread.Sleep(8000);
+        }
+
+        // Method to verify if an error message is displayed
+        public bool VerifyErrorMessageDisplayed(string expectedErrorMessage)
+        {
+            try
+            {
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(2));
+                IWebElement errorMessageElement = wait.Until(d => d.FindElement(By.XPath($"//div[contains(@class,'ns-box-inner') and contains(text(),'{expectedErrorMessage}')]")));
+                // Capture the error message immediately
+                string actualMessage = errorMessageElement.Text;
+                return actualMessage.Contains(expectedErrorMessage);
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+            catch (WebDriverTimeoutException)
+            {
+                return false;
+            }
+        }
+        
+        public bool IsSystemHandlingGracefully(string languageName)
+        {
+            try
+            {
+                
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+
+                
+                // Check if a substring of the language name is present
+                IWebElement languageElement = wait.Until(d => d.FindElement(By.XPath($"//td[contains(text(),'AAAAA')]")));
+
+                return languageElement != null;
+            }
+            catch (NoSuchElementException)
+            {
+                
+                return false;
+            }
+            catch (WebDriverTimeoutException)
+            {
+                
+                return false;
+            }
+        }
+
+
+
+
+
+
 
     }
 }

@@ -28,15 +28,15 @@ namespace SpecFlowProjectMars1.Features
         
         private static string[] featureTags = ((string[])(null));
         
-#line 1 "LanguageSkills.feature"
+#line 1 "Language.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Manage Languages", "  As a user\r\n  I want to add new languages to my profile\r\n  So that I can showcas" +
-                    "e the languages I know", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Manage Languages", "  As a successfully logged in user\r\n  I want to manage languages in my profile\r\n " +
+                    " So that I can showcase the languages I know", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -104,12 +104,9 @@ namespace SpecFlowProjectMars1.Features
             {
                 this.ScenarioStart();
 #line 7
-    testRunner.Given("the user logs into ProjectMars", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 8
     testRunner.When(string.Format("the user adds the language \"{0}\"  with level \"{1}\"", languages, level), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 9
+#line 8
   testRunner.Then(string.Format("the \"{0}\"should be added to the list", languages), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -135,7 +132,7 @@ namespace SpecFlowProjectMars1.Features
             argumentsOfScenario.Add("oldLevel", oldLevel);
             argumentsOfScenario.Add("newLang", newLang);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update the language name", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 18
+#line 17
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -145,16 +142,13 @@ namespace SpecFlowProjectMars1.Features
             else
             {
                 this.ScenarioStart();
-#line 19
- testRunner.Given("the user logs into ProjectMars", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 20
+#line 18
  testRunner.When(string.Format("I add a language \"{0}\" with level \"{1}\"", oldLang, oldLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 21
+#line 19
 testRunner.And(string.Format("I update \"{0}\" to \"{1}\"", oldLang, newLang), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 22
+#line 20
 testRunner.Then(string.Format("\"{0}\" is added to list", newLang), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -179,7 +173,7 @@ testRunner.Then(string.Format("\"{0}\" is added to list", newLang), ((string)(nu
             argumentsOfScenario.Add("language1", language1);
             argumentsOfScenario.Add("level1", level1);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete a language", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 29
+#line 27
   this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -189,16 +183,13 @@ testRunner.Then(string.Format("\"{0}\" is added to list", newLang), ((string)(nu
             else
             {
                 this.ScenarioStart();
-#line 30
-    testRunner.Given("the user logs into ProjectMars", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 31
+#line 28
     testRunner.When(string.Format("I add a language \"{0}\" with level \"{1}\"", language1, level1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 32
+#line 29
     testRunner.And(string.Format("I delete the language \"{0}\"", language1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 33
+#line 30
     testRunner.Then(string.Format("the language \"{0}\" is removed", language1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -206,26 +197,16 @@ testRunner.Then(string.Format("\"{0}\" is added to list", newLang), ((string)(nu
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add a skill")]
-        [NUnit.Framework.CategoryAttribute("skill")]
-        [NUnit.Framework.TestCaseAttribute("c#", "Expert", null)]
-        [NUnit.Framework.TestCaseAttribute("skill123", "Beginner", null)]
-        [NUnit.Framework.TestCaseAttribute("", "Expert", null)]
-        public void AddASkill(string skills, string levels, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Verify user can not add a language without choosing a language level")]
+        [NUnit.Framework.CategoryAttribute("language")]
+        public void VerifyUserCanNotAddALanguageWithoutChoosingALanguageLevel()
         {
-            string[] @__tags = new string[] {
-                    "skill"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            string[] tagsOfScenario = @__tags;
+            string[] tagsOfScenario = new string[] {
+                    "language"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("skills", skills);
-            argumentsOfScenario.Add("levels", levels);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 39
- this.ScenarioInitialize(scenarioInfo);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify user can not add a language without choosing a language level", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 37
+this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -234,40 +215,29 @@ testRunner.Then(string.Format("\"{0}\" is added to list", newLang), ((string)(nu
             else
             {
                 this.ScenarioStart();
-#line 40
- testRunner.Given("the user logs into ProjectMars", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 38
+testRunner.When("I attempt to add a language \"English\" without selecting a level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 41
- testRunner.When(string.Format("the user adds a skill \"{0}\" with level \"{1}\"", skills, levels), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 42
- testRunner.Then(string.Format("the \"{0}\" should be added to the list", skills), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 39
+testRunner.Then("I should see an error message \"Please enter language and level\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Update a skill")]
-        [NUnit.Framework.CategoryAttribute("skill")]
-        [NUnit.Framework.TestCaseAttribute("python1", "Expert", "Testing", null)]
-        [NUnit.Framework.TestCaseAttribute("gfgfch21", "Beginner", "JIRA", null)]
-        public void UpdateASkill(string oldSkills, string oldLevels, string newSkills, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Verify user cannot add a language and language level combination that already exi" +
+            "sts")]
+        [NUnit.Framework.CategoryAttribute("language")]
+        public void VerifyUserCannotAddALanguageAndLanguageLevelCombinationThatAlreadyExists()
         {
-            string[] @__tags = new string[] {
-                    "skill"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            string[] tagsOfScenario = @__tags;
+            string[] tagsOfScenario = new string[] {
+                    "language"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("oldSkills", oldSkills);
-            argumentsOfScenario.Add("oldLevels", oldLevels);
-            argumentsOfScenario.Add("newSkills", newSkills);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 49
- this.ScenarioInitialize(scenarioInfo);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify user cannot add a language and language level combination that already exi" +
+                    "sts", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 42
+this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -276,42 +246,94 @@ testRunner.Then(string.Format("\"{0}\" is added to list", newLang), ((string)(nu
             else
             {
                 this.ScenarioStart();
+#line 43
+testRunner.Given("the language \"abcd\" with level \"Fluent\" is already present", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 44
+testRunner.When("I attempt to add the language \"abcd\" with level \"Fluent\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 45
+testRunner.Then("I should see an error message saying \"This language is already exists in your lan" +
+                        "guage list\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Verify user cannot add the same language with a different language level")]
+        [NUnit.Framework.CategoryAttribute("language")]
+        public void VerifyUserCannotAddTheSameLanguageWithADifferentLanguageLevel()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "language"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify user cannot add the same language with a different language level", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 48
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 49
+    testRunner.Given("the language \"English\" with level \"Fluent\" is already present", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
 #line 50
- testRunner.Given("the user logs into ProjectMars", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+    testRunner.When("I attempt to add the language \"English\" with level \"Conversational\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 51
- testRunner.When(string.Format("add a skill \"{0}\" with level \"{1}\"", oldSkills, oldLevels), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 52
- testRunner.And(string.Format("I update the \"{0}\" to \"{1}\"", oldSkills, newSkills), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 53
- testRunner.Then(string.Format("\"{0}\"  is updated to \"{1}\"", oldSkills, newSkills), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("I should see an error message \"Duplicated data\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Delete a skill")]
-        [NUnit.Framework.CategoryAttribute("skill")]
-        [NUnit.Framework.TestCaseAttribute("abcdefghijklmnopq", "Beginner", null)]
-        [NUnit.Framework.TestCaseAttribute("java", "Expert", null)]
-        public void DeleteASkill(string skillName1, string levelName1, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Verify that the system can gracefully handle large payload when adding a language" +
+            "")]
+        [NUnit.Framework.CategoryAttribute("language")]
+        public void VerifyThatTheSystemCanGracefullyHandleLargePayloadWhenAddingALanguage()
         {
-            string[] @__tags = new string[] {
-                    "skill"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            string[] tagsOfScenario = @__tags;
+            string[] tagsOfScenario = new string[] {
+                    "language"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("skillName1", skillName1);
-            argumentsOfScenario.Add("levelName1", levelName1);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete a skill", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify that the system can gracefully handle large payload when adding a language" +
+                    "", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 54
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 55
+    testRunner.When("I attempt to add a language with a large payload", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 56
+    testRunner.Then("the system should gracefully handle the large payload without errors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Verify user cannot update a duplicate language name")]
+        [NUnit.Framework.CategoryAttribute("language")]
+        public void VerifyUserCannotUpdateADuplicateLanguageName()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "language"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify user cannot update a duplicate language name", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 59
- this.ScenarioInitialize(scenarioInfo);
+this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -321,16 +343,17 @@ testRunner.Then(string.Format("\"{0}\" is added to list", newLang), ((string)(nu
             {
                 this.ScenarioStart();
 #line 60
- testRunner.Given("the user logs into ProjectMars", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+testRunner.Given("I have a language named \"English\" with level \"Basic\" in the system", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 61
- testRunner.When(string.Format("I add a skill \"{0}\" with level \"{1}\"", skillName1, levelName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("I attempt to update the language name \"English\" to \"Spanish\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 62
- testRunner.And(string.Format("I delete the \"{0}\"", skillName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("I attempt to update the language name \"Spanish\"again to \"Spanish\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 63
- testRunner.Then(string.Format("the skill \"{0}\" is removed", skillName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("the system should display an error message \"This language is already added to you" +
+                        "r language list.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

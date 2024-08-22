@@ -3,56 +3,48 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using SpecFlowProjectMars1.Pages;
+using SpecFlowProjectMars1.Utilities;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowProjectMars1.Hooks
 {
 
     [Binding]
-    public class Hooks
+    public class Hooks: CommonDriver
     {
-        private IWebDriver driver;
 
+       
         [BeforeScenario("language")]
         public void BeforeScenarioLanguage()
         {
 
-            driver = new ChromeDriver();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            driver.Navigate().GoToUrl("http://localhost:5000/Home");
-
             LoginActions loginPageobj = new LoginActions();
-            loginPageobj.Login(driver, "test123456@test.com", "test123456");
-            ClearLanguageTestData(driver);
+            loginPageobj.Login("test123456@test.com", "test123456");
+            ClearLanguageTestData();
         }
         [BeforeScenario("skill")]
         public void BeforeScenarioSkill()
         {
-
-            driver = new ChromeDriver();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            driver.Navigate().GoToUrl("http://localhost:5000/Home");
-
             LoginActions loginPageobj = new LoginActions();
-            loginPageobj.Login(driver, "test123456@test.com", "test123456");
-            ClearSkillTestData(driver);
+            loginPageobj.Login("test123456@test.com", "test123456");
+            ClearSkillTestData();
         }
 
         [AfterScenario("language")]
         public void AfterScenarioLanguage()
         {
-            ClearLanguageTestData(driver);
+            ClearLanguageTestData();
             driver.Quit();
         }
 
         [AfterScenario("skill")]
         public void AfterScenarioSkill()
         {
-            ClearSkillTestData(driver);
+            ClearSkillTestData();
             driver.Quit();
         }
 
-        private void ClearSkillTestData(IWebDriver driver)
+        private void ClearSkillTestData()
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(50));
             //Navigate to skill
@@ -94,9 +86,10 @@ namespace SpecFlowProjectMars1.Hooks
                 }
             }
         }
-        private void ClearLanguageTestData(IWebDriver driver)
+        private void ClearLanguageTestData()
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(50));
+            
+            //WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(50));
             var countLang = driver.FindElements(By.XPath("//tbody/tr[1]/td[3]/span[2]")).Count;
             // Clear all languages
             for (int i = 0; i < countLang; i++)
