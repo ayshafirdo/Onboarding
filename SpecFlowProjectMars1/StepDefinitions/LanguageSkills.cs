@@ -294,14 +294,7 @@ namespace SpecFlowProjectMars1.StepDefinitions
 
 
 
-        //[AfterScenario]
-        /* public void CleanUp()
-         {
-             if (driver != null)
-             {
-                 driver.Quit();
-             }
-         }*/
+       
     }
 }
     
