@@ -103,6 +103,9 @@ namespace SpecFlowProjectMars1.Features
             else
             {
                 this.ScenarioStart();
+#line 7
+ testRunner.Given("the user is on the Skills page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
 #line 8
  testRunner.When(string.Format("the user adds a skill \"{0}\" with level \"{1}\"", skills, levels), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
@@ -142,6 +145,9 @@ namespace SpecFlowProjectMars1.Features
             else
             {
                 this.ScenarioStart();
+#line 17
+  testRunner.Given("the user is on the Skills page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
 #line 18
  testRunner.When(string.Format("add a skill \"{0}\" with level \"{1}\"", oldSkills, oldLevels), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
@@ -158,7 +164,7 @@ namespace SpecFlowProjectMars1.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Delete a skill")]
         [NUnit.Framework.CategoryAttribute("skill")]
-        [NUnit.Framework.TestCaseAttribute("abcdefghijklmnopq", "Beginner", null)]
+        [NUnit.Framework.TestCaseAttribute("abcd1@", "Beginner", null)]
         [NUnit.Framework.TestCaseAttribute("java", "Expert", null)]
         public void DeleteASkill(string skillName1, string levelName1, string[] exampleTags)
         {
@@ -183,6 +189,9 @@ namespace SpecFlowProjectMars1.Features
             else
             {
                 this.ScenarioStart();
+#line 27
+  testRunner.Given("the user is on the Skills page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
 #line 28
  testRunner.When(string.Format("I add a skill \"{0}\" with level \"{1}\"", skillName1, levelName1), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
@@ -216,9 +225,12 @@ namespace SpecFlowProjectMars1.Features
             {
                 this.ScenarioStart();
 #line 38
- testRunner.When("I attempt to add a skill \"Python\" without selecting a skill level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.Given("the user is on the Skills page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 39
+ testRunner.When("I attempt to add a skill \"Python\" without selecting a skill level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 40
 testRunner.Then("I should see an error message \"Please enter skill and experience level\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -234,7 +246,7 @@ testRunner.Then("I should see an error message \"Please enter skill and experien
                     "skill"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify user cannot add a skill and skill level combination that already exists", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 42
+#line 43
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -244,13 +256,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 43
-testRunner.Given("the skill \"Testing\" with level \"Beginner\" is already present", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
 #line 44
-testRunner.When("I attempt to add the skill \"Testing\" with level \"Beginner\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("the user is on the Skills page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 45
+testRunner.Given("the skill \"Test\" with level \"Beginner\" is already present", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 46
+testRunner.When("I attempt to add the skill \"Test\" with level \"Beginner\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 47
 testRunner.Then("I should see an error message \"This skill is already exist in your skill list\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -266,7 +281,7 @@ testRunner.Then("I should see an error message \"This skill is already exist in 
                     "skill"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify user cannot add the same skill with a different skill level", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 48
+#line 50
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -276,13 +291,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 49
-    testRunner.Given("the skill \"Java\" with level \"Intermediate\" is already present", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 50
-    testRunner.When("I attempt to add the skill \"Java\" with level \"Expert\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
 #line 51
+ testRunner.Given("the user is on the Skills page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 52
+    testRunner.Given("the skill \"Javaprogram\" with level \"Intermediate\" is already present", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 53
+    testRunner.When("I attempt to add the skill \"Javaprogram\" with level \"Expert\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 54
     testRunner.Then("I should see an error message \"Duplicated data\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -298,7 +316,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "skill"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify that the system can gracefully handle large payload when adding a skill", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 54
+#line 57
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -308,10 +326,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 55
+#line 58
+ testRunner.Given("the user is on the Skills page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 59
     testRunner.When("I attempt to add a skill with a large payload", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 56
+#line 60
     testRunner.Then("the system should gracefully handle the large skill payload without errors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -327,7 +348,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "skill"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify user cannot update a duplicate skill name", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 59
+#line 63
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -337,16 +358,19 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 60
+#line 64
+ testRunner.Given("the user is on the Skills page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 65
 testRunner.Given("I have a skill named \"Logo\" with level \"Beginner\" in the system", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 61
+#line 66
     testRunner.When("I attempt to update the skill name \"Logo\" to \"Web\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 62
+#line 67
     testRunner.And("I attempt to update the skill name \"Web\"again to \"Web\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 63
+#line 68
     testRunner.Then("the system should display an error message \"This skill is already added to your s" +
                         "kill list.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden

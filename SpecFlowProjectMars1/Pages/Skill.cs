@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.DevTools.V125.DOMDebugger;
 using OpenQA.Selenium.Support.UI;
+using SpecFlowProjectMars1.Hooks1;
 using SpecFlowProjectMars1.Utilities;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace SpecFlowProjectMars1.Pages
 
         private readonly By skillButtonLocator = By.XPath("//a[contains(text(),'Skills')]");
         private readonly By addNewSkillButtonLocator = By.XPath("//body[1]/div[1]/div[1]/section[2]/div[1]/div[1]/div[1]/div[3]/form[1]/div[3]/div[1]/div[2]/div[1]/table[1]/thead[1]/tr[1]/th[3]/div[1]");
-        private readonly By skillNameInputLocator = By.XPath("//input[contains(@placeholder,\"Add Skill\")]");
+        private readonly By skillNameInputLocator = By.XPath("//input[contains(@placeholder,'Add Skill')]");
         private readonly By skillLevelDropdownLocator = By.XPath("//div[@id='account-profile-section']//select[@class='ui fluid dropdown']");
         private readonly By addSkillButtonLocator = By.XPath("//body/div[@id='account-profile-section']/div[1]/section[2]/div[1]/div[1]/div[1]/div[3]/form[1]/div[3]/div[1]/div[2]/div[1]/div[1]/span[1]/input[1]");
         public void AddNewSkill(string skillName, string skillLevel)
@@ -27,6 +28,7 @@ namespace SpecFlowProjectMars1.Pages
             IWebElement skillButton = wait.Until(d => d.FindElement(skillButtonLocator));
             skillButton.Click();
             //Click on Add New Skill
+            Thread.Sleep(1000);
             IWebElement addNewSkillButton = wait.Until(d => d.FindElement(addNewSkillButtonLocator));
             addNewSkillButton.Click();
             //Enter skill name
@@ -49,6 +51,8 @@ namespace SpecFlowProjectMars1.Pages
                 {
                     IWebElement validationMessage = wait.Until(d => d.FindElement(By.XPath("//div[@class='ns-box-inner' and contains(text(), 'Please enter skill and experience level')]")));
                     Assert.AreEqual("Please enter skill and experience level", validationMessage.Text);
+                    IWebElement cancelButton = wait.Until(d => d.FindElement(By.XPath("//input[contains(@value, 'Cancel')]")));
+                    cancelButton.Click();
                 }
                 catch (WebDriverTimeoutException)
                 {
@@ -93,6 +97,9 @@ namespace SpecFlowProjectMars1.Pages
                 // If the wait times out, return false
                 return false;
             }
+
+      
+        
         }
         public void EditSkill(string oldSkills, string newSkills)
         {
@@ -106,7 +113,7 @@ namespace SpecFlowProjectMars1.Pages
             IWebElement skillRow = wait.Until(d => d.FindElement(By.XPath($"//td[text()='{oldSkills}']/parent::tr")));
             Thread.Sleep(5000);
             // Find the "Edit" button within that row and click it
-            IWebElement editButton = skillRow.FindElement(By.XPath("//tbody/tr[1]/td[3]/span[1]"));
+            IWebElement editButton = skillRow.FindElement(By.XPath("./td[3]/span[1]"));
             editButton.Click();
 
             // Wait for the skill name to become editable
@@ -164,7 +171,7 @@ namespace SpecFlowProjectMars1.Pages
                 IWebElement skillRow = wait.Until(d => d.FindElement(By.XPath($"//td[text()='{skillName1}']/parent::tr")));
 
                 // Find the delete button within the located row
-                IWebElement delSkillButton = skillRow.FindElement(By.XPath("//td[3]/span[2]/i[1]"));
+                IWebElement delSkillButton = skillRow.FindElement(By.XPath("./td[3]/span[2]/i[1]"));
 
                 // Click the delete button
                 delSkillButton.Click();
@@ -211,6 +218,7 @@ namespace SpecFlowProjectMars1.Pages
             IWebElement skillButton = wait.Until(d => d.FindElement(skillButtonLocator));
             skillButton.Click();
             //Click on Add New Skill
+            Thread.Sleep(1000);
             IWebElement addNewSkillButton = wait.Until(d => d.FindElement(addNewSkillButtonLocator));
             addNewSkillButton.Click();
             //Enter skill name

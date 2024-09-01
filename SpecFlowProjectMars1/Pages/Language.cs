@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium.Chrome;
 using NUnit.Framework;
 using SpecFlowProjectMars1.Utilities;
+using SpecFlowProjectMars1.Hooks1;
 
 namespace SpecFlowProjectMars1.Pages
 {
@@ -50,6 +51,8 @@ namespace SpecFlowProjectMars1.Pages
                 {
                     IWebElement validationMessage = wait.Until(d => d.FindElement(validationMessageLocator));
                     Assert.AreEqual("Please enter language and level", validationMessage.Text);
+                    IWebElement cancelButton=wait.Until(d=>d.FindElement(By.XPath("//input[contains(@value, 'Cancel')]")));
+                    cancelButton.Click();
                 }
                 catch (WebDriverTimeoutException)
                 {
@@ -63,9 +66,13 @@ namespace SpecFlowProjectMars1.Pages
             }
 
             Thread.Sleep(8000);
+          
+            
         }
+       
 
         
+
 
         public bool VerifyLanguageAdded(string languageName)
         {
@@ -108,7 +115,7 @@ namespace SpecFlowProjectMars1.Pages
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
             //Click on edit button
-            IWebElement editButtonLang = wait.Until(d => d.FindElement(By.XPath("//tbody/tr[1]/td[3]/span[1]/i[1]")));
+            IWebElement editButtonLang = wait.Until(d => d.FindElement(By.XPath($"//tbody/tr[td[contains(text(),'{oldLang}')]]/td[3]/span[1]/i[1]")));
             editButtonLang.Click();
 
             IWebElement languageNameInput2 = wait.Until(d => d.FindElement(By.XPath("//input[contains(@placeholder,\"Add Language\")]")));
@@ -143,7 +150,7 @@ namespace SpecFlowProjectMars1.Pages
             
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             //Delete language
-            IWebElement delLangButton = wait.Until(d => d.FindElement(By.XPath("//tbody/tr[1]/td[3]/span[2]/i[1]")));
+            IWebElement delLangButton = wait.Until(d => d.FindElement(By.XPath($"//tbody/tr[td[1][contains(text(),'{language1}')]]/td[3]/span[2]/i[1]")));
             delLangButton.Click();
         }
 
@@ -183,10 +190,14 @@ namespace SpecFlowProjectMars1.Pages
         public void AddNewLanguageWithoutLevel(string languageName)
         {
             Thread.Sleep(1000);
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            IWebElement cancelButton = wait.Until(d => d.FindElement(By.XPath("//input[contains(@value, 'Cancel')]")));
+            cancelButton.Click();
 
             // Adding Language
             driver.FindElement(addNewButtonLocator).Click();
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            Thread.Sleep(1000);
+          
 
             // Locate the language name input field
             IWebElement languageNameInput = wait.Until(d => d.FindElement(languageNameInputLocator));
@@ -252,7 +263,13 @@ namespace SpecFlowProjectMars1.Pages
                 // Capture the error message immediately
                 string actualMessage = errorMessageElement.Text;
                 return actualMessage.Contains(expectedErrorMessage);
+                IWebElement cancelButton = wait.Until(d => d.FindElement(By.XPath("//input[contains(@value, 'Cancel')]")));
+                cancelButton.Click();
+                
+            
             }
+           
+        
             catch (NoSuchElementException)
             {
                 return false;
@@ -261,6 +278,8 @@ namespace SpecFlowProjectMars1.Pages
             {
                 return false;
             }
+            
+
         }
         
         public bool IsSystemHandlingGracefully(string languageName)

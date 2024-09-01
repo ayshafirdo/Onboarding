@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using SeleniumExtras.WaitHelpers;
+using SpecFlowProjectMars1.Hooks1;
 
 namespace SpecFlowProjectMars1.StepDefinitions
 {
@@ -20,22 +21,31 @@ namespace SpecFlowProjectMars1.StepDefinitions
         
         Language languageobj = new Language();
         Skill skillobj=new Skill();
+        
 
-        /*[Given(@"the user logs into ProjectMars")]
-        public void GivenTheUserLogsIntoProjectMars()
+        [Given(@"the user is on the Languages page")]
+        public void GivenTheUserIsOnTheLanguagesPage()
         {
-            /*driver = new ChromeDriver();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            driver.Navigate().GoToUrl("http://localhost:5000/Home");
-            
-            LoginActions loginPageobj = new LoginActions();
-            loginPageobj.Login("test123456@test.com", "test123456");
-        }*/
+            // Navigate to Languages page
+            IWebElement languageButton = driver.FindElement(By.XPath("//a[contains(text(),'Languages')]"));
+            languageButton.Click();
+        }
+        [Given(@"the user is on the Skills page")]
+        public void GivenTheUserIsOnTheSkillsPage()
+        {
+            // Navigate to Skills page
+            IWebElement skillButton = driver.FindElement(By.XPath("//a[contains(text(),'Skills')]"));
+            skillButton.Click();
+        }
+
+
         [Scope(Tag = "language")]
         [When(@"the user adds the language ""([^""]*)""  with level ""([^""]*)""")]
         public void WhenTheUserAddsTheLanguageWithLevel(string languages, string level)
         {
-            languageobj.AddNewLanguage(languages,level);  
+            languageobj.AddNewLanguage(languages,level);
+            Hooks.AddLanguageTestData(languages);
+            
         }
         [Then(@"the ""([^""]*)""should be added to the list")]
         public void ThenTheShouldBeAddedToTheList(string language)
@@ -57,6 +67,7 @@ namespace SpecFlowProjectMars1.StepDefinitions
         public void WhenIUpdateTo(string oldLang, string newLang)
         {
             languageobj.EditLanguage(oldLang,newLang);
+            Hooks.AddLanguageTestData(newLang);
         }
 
         [Then(@"""([^""]*)"" is added to list")]
@@ -77,15 +88,18 @@ namespace SpecFlowProjectMars1.StepDefinitions
             languageobj.VerifyLanguageDeleted(language1);
         }
         [When(@"I attempt to add a language ""([^""]*)"" without selecting a level")]
-        public void WhenIAttemptToAddALanguageWithoutSelectingALevel(string english)
+        public void WhenIAttemptToAddALanguageWithoutSelectingALevel(string Arabic)
         {
-            languageobj.AddNewLanguageWithoutLevel(english);
+            languageobj.AddNewLanguageWithoutLevel(Arabic);
+            
+
         }
 
         [Given(@"the language ""([^""]*)"" with level ""([^""]*)"" is already present")]
         public void GivenTheLanguageWithLevelIsAlreadyPresent(string languageExisting, string levelExisting)
         {
             languageobj.AddNewLanguage(languageExisting,levelExisting);
+            Hooks.AddLanguageTestData(languageExisting);
         }
 
 
@@ -94,6 +108,9 @@ namespace SpecFlowProjectMars1.StepDefinitions
         {
             bool isValidationMessageDisplayed = languageobj.VerifyErrorMessageDisplayed(expectedErrorMessage);
             Assert.IsTrue(isValidationMessageDisplayed, "Expected validation message was not displayed.");
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            IWebElement cancelButton = wait.Until(d => d.FindElement(By.XPath("//input[contains(@value, 'Cancel')]")));
+            cancelButton.Click();
         }
     
         [When(@"I attempt to add the language ""([^""]*)"" with level ""([^""]*)""")]
@@ -103,10 +120,10 @@ namespace SpecFlowProjectMars1.StepDefinitions
         }
 
         [Then(@"I should see an error message saying ""([^""]*)""")]
-        public void ThenIShouldSeeAnErrorMessageSaying(string p0)
+        public void ThenIShouldSeeAnErrorMessageSaying(string expectedErrorMessage)
         {
-            languageobj.VerifyValidation();
-        }
+            languageobj.VerifyErrorMessageDisplayed(expectedErrorMessage);
+        }   
 
         [When(@"I attempt to add a language with a large payload")]
         public void WhenIAttemptToAddALanguageWithALargePayload()
@@ -114,6 +131,7 @@ namespace SpecFlowProjectMars1.StepDefinitions
             string largePayload = new string('A', 1000); 
 
             languageobj.AddNewLanguage(largePayload, "Fluent");
+            Hooks.AddLanguageTestData(largePayload);
         }
         [Then(@"I should see an error message ""([^""]*)"" or the system should gracefully handle the input without crashing")]
         public void ThenIShouldSeeAnErrorMessageOrHandleGracefully(string expectedErrorMessage,string languageName)
@@ -154,14 +172,15 @@ namespace SpecFlowProjectMars1.StepDefinitions
          }
 
         [Given(@"I have a language named ""([^""]*)"" with level ""([^""]*)"" in the system")]
-        public void GivenIHaveALanguageNamedWithLevelInTheSystem(string english,string basic)
+        public void GivenIHaveALanguageNamedWithLevelInTheSystem(string tamil,string basic)
         {
-            languageobj.AddNewLanguage(english, basic);
+            languageobj.AddNewLanguage(tamil, basic);
         }
         [When(@"I attempt to update the language name ""([^""]*)"" to ""([^""]*)""")]
-        public void WhenIAttemptToUpdateTheLanguageNameTo(string english, string spanish)
+        public void WhenIAttemptToUpdateTheLanguageNameTo(string tamil, string spanish)
         {
-            languageobj.EditLanguage(english, spanish);
+            languageobj.EditLanguage(tamil, spanish);
+            Hooks.AddLanguageTestData("spanish");
         }
 
         [When(@"I attempt to update the language name ""([^""]*)""again to ""([^""]*)""")]
@@ -175,6 +194,9 @@ namespace SpecFlowProjectMars1.StepDefinitions
         public void ThenTheSystemShouldDisplayAnErrorMessage(string expectedErrorMessage)
         {
            languageobj.VerifyErrorMessageDisplayed(expectedErrorMessage);
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            IWebElement cancelButton = wait.Until(d => d.FindElement(By.XPath("//input[contains(@value, 'Cancel')]")));
+            cancelButton.Click();
         }
 
 
@@ -203,6 +225,7 @@ namespace SpecFlowProjectMars1.StepDefinitions
         public void WhenTheUserAddsASkillWithLevel(string skills, string levels)
         {
             skillobj.AddNewSkill(skills,levels);
+            Hooks.AddSkillTestData(skills);
         }
         
         [Then(@"the ""([^""]*)"" should be added to the list")]
@@ -222,6 +245,7 @@ namespace SpecFlowProjectMars1.StepDefinitions
         public void WhenIUpdateTheTo(string oldSkills, string newSkills)
         {
             skillobj.EditSkill(oldSkills,newSkills);
+            Hooks.AddSkillTestData(newSkills);
         }
 
         
@@ -258,6 +282,7 @@ namespace SpecFlowProjectMars1.StepDefinitions
         public void GivenTheSkillWithLevelIsAlreadyPresent(string skillExisting, string skillLevelExisting)
         {
             skillobj.AddNewSkill(skillExisting,skillLevelExisting);
+            Hooks.AddSkillTestData(skillLevelExisting);
         }
 
         [When(@"I attempt to add the skill ""([^""]*)"" with level ""([^""]*)""")]
@@ -271,6 +296,7 @@ namespace SpecFlowProjectMars1.StepDefinitions
             string largePayload = new string('B', 1000);
 
             skillobj.AddNewSkill(largePayload, "Expert");
+            Hooks.AddSkillTestData(largePayload);
         }
         [Given(@"I have a skill named ""([^""]*)"" with level ""([^""]*)"" in the system")]
         public void GivenIHaveASkillNamedWithLevelInTheSystem(string Logo, string Beginner)
@@ -282,6 +308,7 @@ namespace SpecFlowProjectMars1.StepDefinitions
         public void WhenIAttemptToUpdateTheSkillNameTo(string Logo, string Web)
         {
             skillobj.EditSkill(Logo,Web);
+            Hooks.AddSkillTestData(Web);
         }
 
         [When(@"I attempt to update the skill name ""([^""]*)""again to ""([^""]*)""")]
