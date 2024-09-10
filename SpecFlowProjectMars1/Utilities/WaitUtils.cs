@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace SpecFlowProjectMars1.Utilities
 {
-    public class WaitUtils
+    public class WaitUtils :CommonDriver
     {
-        public static void WaitToBeVisible(IWebDriver driver,string tmOptionLocator,string locatorValue,int seconds)
+        public IWebElement WaitToBeVisible(By locator,int seconds)
         {
-            WebDriverWait driverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(seconds));
-           
+            WebDriverWait wait = new WebDriverWait(driver,TimeSpan.FromSeconds(seconds));
+            return wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(locator));
+
         }
     }
 }

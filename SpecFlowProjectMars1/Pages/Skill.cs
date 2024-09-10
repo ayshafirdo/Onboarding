@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SpecFlowProjectMars1.Pages
 {
-    public class Skill : CommonDriver
+    public class Skill : CommonDriver 
     {
 
         private readonly By skillButtonLocator = By.XPath("//a[contains(text(),'Skills')]");
@@ -20,29 +20,33 @@ namespace SpecFlowProjectMars1.Pages
         private readonly By skillNameInputLocator = By.XPath("//input[contains(@placeholder,'Add Skill')]");
         private readonly By skillLevelDropdownLocator = By.XPath("//div[@id='account-profile-section']//select[@class='ui fluid dropdown']");
         private readonly By addSkillButtonLocator = By.XPath("//body/div[@id='account-profile-section']/div[1]/section[2]/div[1]/div[1]/div[1]/div[3]/form[1]/div[3]/div[1]/div[2]/div[1]/div[1]/span[1]/input[1]");
+
+        //Track skills added during the test
+        private static List<string> addedSkills = new List<string>();
+        private WebDriverWait wait => new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+        private IWebElement SkillButton => wait.Until(d => d.FindElement(skillButtonLocator));
+        private IWebElement AddNewSkillButton=>wait.Until(d=>d.FindElement(addNewSkillButtonLocator));
+        private IWebElement SkillNameInput =>wait.Until(d=>d.FindElement(skillNameInputLocator));
+        private IWebElement SkillLevelDropdown=>wait.Until(d=>d.FindElement(skillLevelDropdownLocator));
+        private IWebElement AddSkillButton=>wait.Until(d=>d.FindElement(addSkillButtonLocator));
+
         public void AddNewSkill(string skillName, string skillLevel)
         {
-            // Wait for the elements to be visible and interactable
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            
             //Navigate to skill
-            IWebElement skillButton = wait.Until(d => d.FindElement(skillButtonLocator));
-            skillButton.Click();
+            SkillButton.Click();
             //Click on Add New Skill
-            Thread.Sleep(1000);
-            IWebElement addNewSkillButton = wait.Until(d => d.FindElement(addNewSkillButtonLocator));
-            addNewSkillButton.Click();
+            AddNewSkillButton.Click();
             //Enter skill name
-            IWebElement skillNameInput = wait.Until(d => d.FindElement(skillNameInputLocator));
-            skillNameInput.Click();
-            skillNameInput.SendKeys(skillName);
+            SkillNameInput.Click();
+            SkillNameInput.SendKeys(skillName);
             //Choose skill level from dropdown
-            IWebElement skillLevelDropdown = wait.Until(d => d.FindElement(skillLevelDropdownLocator));
-            SelectElement selectSkillLevel = new SelectElement(skillLevelDropdown);
+            
+            SelectElement selectSkillLevel = new SelectElement(SkillLevelDropdown);
             selectSkillLevel.SelectByText(skillLevel);
-            Thread.Sleep(5000);
+            
             //Click on Add Skill Button
-            IWebElement addSkillButton = wait.Until(d => d.FindElement(addSkillButtonLocator));
-            addSkillButton.Click();
+            AddSkillButton.Click();
             System.Threading.Thread.Sleep(5000);
             // Verify the toast message for empty skill name
             if (string.IsNullOrWhiteSpace(skillName))
@@ -272,6 +276,131 @@ namespace SpecFlowProjectMars1.Pages
                 return false;
             }
         }
+        public static List<string> GetAllSkills()
+        {
+            List<string> skills = new List<string>();
+            //Navigate to skills section
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+
+            IWebElement skillButton = wait.Until(d => d.FindElement(By.XPath("//a[contains(text(),'Skills')]")));
+            skillButton.Click();
+
+            // Locate the skill elements in the list
+            var skillElements = driver.FindElements(By.XPath("//th[contains(text(),'Skill')]/ancestor::table//tbody/tr/td[1]"));
+
+            // Extract the text (skill name) from each element and add it to the list
+            foreach (var element in skillElements)
+            {
+                skills.Add(element.Text);
+            }
+
+            return skills;
+        }
+
+        public void ClearAllSkills()
+        {
+            // Retrieve the list of all skills currently present
+            var allSkills = GetAllSkills();
+
+            // Loop through the list and delete each skill
+            foreach (var skill in allSkills)
+            {
+                ClearSkillTestData(skill);
+            }
+        }
+        public void ClearSkillTestData(string skillName)
+        {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(50));
+            //Navigate to skill
+            IWebElement skillButton = wait.Until(d => d.FindElement(By.XPath("//a[contains(text(),'Skills')]")));
+            skillButton.Click();
+
+            var count = driver.FindElements(By.XPath("//tbody/tr[1]/td[3]/span[2]")).Count;
+            // Clear all skills
+            for (int i = 0; i < count; i++)
+            {
+
+
+                try
+                {
+
+                    var skillDeleteButtons = driver.FindElements(By.XPath("//tbody/tr[1]/td[3]/span[2]"));
+                    {
+                        try
+                        {
+                            skillDeleteButtons[0].Click();
+                        }
+                        catch (WebDriverException ex)
+                        {
+                            Console.WriteLine($"Error interacting with delete button: {ex.Message}");
+                        }
+
+
+                    }
+                }
+                catch (NoSuchElementException)
+                {
+                    // If no elements are found, ignore
+                    Console.WriteLine("No skill delete buttons found.");
+                }
+                catch (WebDriverTimeoutException)
+                {
+                    // If the wait times out, ignore
+                    Console.WriteLine("Timeout while waiting for skill delete buttons.");
+                }
+            }
+        }
+        public  void AddSkillTestData(string skillName)
+        {
+            Console.WriteLine($"Adding skill to track: {skillName}");
+            addedSkills.Add(skillName);
+        }
+        public void ClearAddedSkills(string skillName)
+        {
+            Console.WriteLine("Skills to clear: " + string.Join(", ", addedSkills));
+            foreach (var skillNames in addedSkills)
+            {
+                Console.WriteLine($"Clearing skill: {skillName}");
+                ClearSkillTestData(skillName);
+            }
+            addedSkills.Clear();
+        }
+        
+        //Method to get the llist of added skills
+        public List<string> GetAddedSkills()
+        {
+            return new List<string>(addedSkills);
+        }
+        public bool VerifyErrorMessageDisplayed(string expectedErrorMessage)
+        {
+            try
+            {
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(2));
+                IWebElement errorMessageElement = wait.Until(d => d.FindElement(By.XPath($"//div[contains(@class,'ns-box-inner') and contains(text(),'{expectedErrorMessage}')]")));
+                // Capture the error message immediately
+                string actualMessage = errorMessageElement.Text;
+                return actualMessage.Contains(expectedErrorMessage);
+                IWebElement cancelButton = wait.Until(d => d.FindElement(By.XPath("//input[contains(@value, 'Cancel')]")));
+                cancelButton.Click();
+
+
+            }
+
+
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+            catch (WebDriverTimeoutException)
+            {
+                return false;
+            }
+
+
+        }
+
+
+
 
     }
 }

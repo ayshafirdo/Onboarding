@@ -47,7 +47,7 @@ Scenario:Verify user cannot add a language and language level combination that a
 Given the user is on the Languages page
 Given the language "abcd" with level "Fluent" is already present
 When I attempt to add the language "abcd" with level "Fluent"
-Then I should see an error message saying "This language is already exists in your language list"
+Then I should see an error message "This language is already exist in your language list."
 
 @language
 Scenario: Verify user cannot add the same language with a different language level
@@ -66,9 +66,9 @@ Given the user is on the Languages page
 Scenario:Verify user cannot update a duplicate language name
 Given the user is on the Languages page
 Given I have a language named "Tamil" with level "Basic" in the system
-    When I attempt to update the language name "Tamil" to "Spanish"
-    And I attempt to update the language name "Spanish"again to "Spanish"
-    Then the system should display an error message "This language is already added to your language list."
+    When I attempt to update the language name "Tamil" to "Malay"
+    And I attempt to update the language name "Malay"again to "Malay"
+    Then I should see an error message "This language is already added to your language list."
     
 
 

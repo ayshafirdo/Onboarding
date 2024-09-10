@@ -268,8 +268,8 @@ testRunner.Given("the language \"abcd\" with level \"Fluent\" is already present
 testRunner.When("I attempt to add the language \"abcd\" with level \"Fluent\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 50
-testRunner.Then("I should see an error message saying \"This language is already exists in your lan" +
-                        "guage list\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("I should see an error message \"This language is already exist in your language li" +
+                        "st.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -370,14 +370,14 @@ testRunner.Given("the user is on the Languages page", ((string)(null)), ((TechTa
 testRunner.Given("I have a language named \"Tamil\" with level \"Basic\" in the system", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 69
-    testRunner.When("I attempt to update the language name \"Tamil\" to \"Spanish\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("I attempt to update the language name \"Tamil\" to \"Malay\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 70
-    testRunner.And("I attempt to update the language name \"Spanish\"again to \"Spanish\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("I attempt to update the language name \"Malay\"again to \"Malay\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 71
-    testRunner.Then("the system should display an error message \"This language is already added to you" +
-                        "r language list.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("I should see an error message \"This language is already added to your language li" +
+                        "st.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
